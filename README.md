@@ -66,23 +66,60 @@ The environment is considered solved, when the average (over 100 episodes) of th
 
 Follow the instructions in `Continuous_Control.ipynb` to get started with training your own agent!  
 
-### (Optional) Challenge: Crawler Environment
+### Trained Reacher Agent
+![Reacher Agent](/JSucco%20Reacher%20Trained%20Sim.gif)
 
-After you have successfully completed the project, you might like to solve the more difficult **Crawler** environment.
+### Project Details
 
-![Crawler][image2]
+This project uses the Unity Reacher environment.
 
-In this continuous control environment, the goal is to teach a creature with four legs to walk forward without falling.  
+-Goal: Control a double-jointed arm so its end effector stays in a moving target zone.
 
-You can read more about this environment in the ML-Agents GitHub [here](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#crawler).  To solve this harder task, you'll need to download a new Unity environment.  (**Note**: Udacity students should not submit a project with this new environment.)
+-Reward: The agent receives +0.1 for every time step its hand is in the goal region (0 otherwise). Episodes are time-limited (up to ~1000 steps).
 
-You need only select the environment that matches your operating system:
-- Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Crawler/Crawler_Linux.zip)
-- Mac OSX: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Crawler/Crawler.app.zip)
-- Windows (32-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Crawler/Crawler_Windows_x86.zip)
-- Windows (64-bit): [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Crawler/Crawler_Windows_x86_64.zip)
+### Observation (State) Space
 
-Then, place the file in the `p2_continuous-control/` folder in the DRLND GitHub repository, and unzip (or decompress) the file.  Next, open `Crawler.ipynb` and follow the instructions to learn how to use the Python API to control the agent.
+-Dimension: 33 per agent
 
-(_For AWS_) If you'd like to train the agent on AWS (and have not [enabled a virtual screen](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-on-Amazon-Web-Service.md)), then please use [this link](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Crawler/Crawler_Linux_NoVis.zip) to obtain the "headless" version of the environment.  You will **not** be able to watch the agent without enabling a virtual screen, but you will be able to train the agent.  (_To watch the agent, you should follow the instructions to [enable a virtual screen](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-on-Amazon-Web-Service.md), and then download the environment for the **Linux** operating system above._)
+-What’s included: arm pose (positions/rotations), linear & angular velocities, and target-related information (e.g., relative position).
+
+-Shape:
+
+-Single-agent build: (33,)
+
+-20-agent build: (20, 33) (first dimension indexes agents)
+
+### Action Space
+
+-Type: Continuous
+
+-Dimension: 4 per agent
+
+-ange: each action component is clipped to [-1, 1]
+
+-Meaning: torques applied to the arm’s actuators/joints.
+
+### Number of Agents
+
+Two official builds exist:
+
+-Single-agent: one arm; faster for local training/visualization.
+
+-20-agent: twenty parallel arms; returns batched observations/rewards/dones (faster learning on capable machines).
+
+### Scoring & “Solved” Criteria
+
+-Per-episode score (single-agent): sum of rewards over the episode for that agent.
+
+-Per-episode score (20-agent): mean of the 20 agents’ episode returns.
+
+-Solved: The environment is considered solved when the average score over 100 consecutive episodes is ≥ 30.
+
+-For the 20-agent build, this threshold applies to the episode-mean scores (i.e., the mean across agents, then averaged over 100 episodes).
+
+### Notes for Repro
+
+-Use train_mode=True during training and no_graphics=True to speed things up.
+
+-For demos/recordings, reopen the env with no_graphics=False and reset with train_mode=False to render the Unity window.
 
