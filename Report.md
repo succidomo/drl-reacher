@@ -1,6 +1,6 @@
-#Continuous Control Project
+# Continuous Control Project
 
-##Actor-Critic Algorithm
+## Actor-Critic Algorithm
 
 For this project the reacher challenge in the unity environment was solved by using a model free actor-critic algorithm.  This was used for its stable learning in continuous action spaces where in the case of the reacher environment is used to reward 20 distinct arms to reach closer to 20 floating green balls.  An actor and a critic network are trained to solve the Reacher challenge in the Unity Environment where the Critic is trained to evaluate actor actions that maximize the reward and the actor is trained to choose actions that the critic believes are best.  The optimal action-value function is calculated using the Bellman equation which is weighed against the critic's evaluation of the actor actions against the environment states.  Effectively comparing the actors actions against the bootstrapped optimal policy or the target action value function.  The agent collects state to action transitions from the environment and execute learning over batches of experiences.  
 
@@ -39,7 +39,7 @@ self.actor_optimizer.step()
 
 ```
 
-##Parameters
+## Parameters
 ```
 BUFFER_SIZE = int(1e5)  # replay buffer size
 BATCH_SIZE = 128        # minibatch size
@@ -50,7 +50,7 @@ LR_CRITIC = 1e-4        # learning rate of the critic
 WEIGHT_DECAY = 0.        # L2 weight decay
 ```
 
-##Plot of Rewards
+## Plot of Rewards
 Below is a chart of the rewards over the course of the challenge and was solved in 85 episodes.
 ![reacher scores plot](/reacher_scores.png)
 
@@ -83,7 +83,7 @@ Episode 120	Reward: 37.25	Average Reward: 37.12
 ```
 Environment considered solved when the average over the last 100 episodes ≥ 30; we reached 30.12 at episode 85.
 
-##Ideas for Future Work
+## Ideas for Future Work
 -[Prioritized Experience Replay](https://arxiv.org/abs/1511.05952)
 -[Entropy regularization for deterministic methods](https://www.sciencedirect.com/science/article/abs/pii/S0020025522013901)
 -[Twin Delayed DDPG](https://blog.mlq.ai/deep-reinforcement-learning-twin-delayed-ddpg-algorithm/#google_vignette)
